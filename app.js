@@ -93,7 +93,7 @@ app.get("/listings", async (req, res) => {
 
 // new route
 app.get("/listings/new", (req, res) => {
-    res.render("listings/new.ejs")
+    res.render("listings/new.ejs");
 });
 
 // show route
@@ -108,8 +108,11 @@ app.get("/listings/:id", async (req, res) => {
 app.post("/listings", async (req, res) => {
     // if not used listings[] in (new.ejs) 
     // let {title, description, image, price, country, location} = req.body;
-    let listing = req.body.listing;
-    console.log(listing); 
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+    // let listing = req.body.listing;
+    // console.log(listing); 
 });
 
 // Edite Route
